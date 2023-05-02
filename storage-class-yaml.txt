@@ -1,0 +1,50 @@
+For the relevant cluster, please recreate the “csi-sc” storage class.
+------------------------------------------------------------------------------------
+
+
+{
+    "kind": "StorageClass",
+    "apiVersion": "storage.k8s.io/v1",
+    "metadata": {
+        "name": "csi-sc",
+        "labels": {
+            "app.kubernetes.io/managed-by": "Helm",
+            "helm.toolkit.fluxcd.io/name": "csi-driver",
+            "helm.toolkit.fluxcd.io/namespace": "wiz-default"
+        },
+    },
+    "provisioner": "wiz.disk.csi.azure.com",
+    "parameters": {
+        "diskEncryptionSetID": "/subscriptions/<OUTPOST-SUBSCRIPTION-ID>/resourceGroups/<RESOURCE-GROUP>/providers/Microsoft.Compute/diskEncryptionSets/<ENCRYPTION-SET>",
+        "kind": "managed",
+        "skuname": "StandardSSD_LRS"
+    },
+    "reclaimPolicy": "Delete",
+    "volumeBindingMode": "WaitForFirstConsumer"
+
+}
+
+
+LIKE:
+------------------------------------------------------------------------------------
+
+{
+    "kind": "StorageClass",
+    "apiVersion": "storage.k8s.io/v1",
+    "metadata": {
+        "name": "csi-sc-coco",
+        "labels": {
+            "app.kubernetes.io/managed-by": "Helm",
+            "helm.toolkit.fluxcd.io/name": "csi-driver",
+            "helm.toolkit.fluxcd.io/namespace": "wiz-default"
+        },
+    },
+    "provisioner": "wiz.disk.csi.azure.com",
+    "parameters": {
+        "diskEncryptionSetID": "/subscriptions/12345b46-765b-4a27-9ecf-6b2f7b5123456/resourceGroups/Yoss-Test-Resources/providers/Microsoft.Compute/diskEncryptionSets/YossiDoubleEcnryptSet",
+        "kind": "managed",
+        "skuname": "StandardSSD_LRS"
+    },
+    "reclaimPolicy": "Delete",
+    "volumeBindingMode": "WaitForFirstConsumer"
+}
