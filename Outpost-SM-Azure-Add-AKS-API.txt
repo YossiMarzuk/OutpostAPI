@@ -1,0 +1,116 @@
+Query:
+-----------------
+
+mutation CreateOutpostCluster($input: CreateOutpostClusterInput!) {
+  createOutpostCluster(input: $input) {
+    cluster {
+      ...OutpostClusterDetails
+    }
+  }
+}
+    
+    fragment OutpostClusterDetails on OutpostCluster {
+  id
+  region
+  createdAt
+  config {
+    ... on OutpostClusterAWSConfig {
+      clusterName
+      sqsURL
+      kubernetesServiceAccountName
+      httpProxyURL
+      httpsProxyURL
+      vpcCIDR
+    }
+    ... on OutpostClusterAzureConfig {
+      clusterName
+      servicebusQueueName
+      servicebusNamespace
+      resourceGroupName
+      storageAccountNames
+      subscriptionId
+    }
+    ... on OutpostClusterGCPConfig {
+      clusterName
+      projectId
+     clusterZone
+      topicName
+      pubSubSubscription
+    }
+    ... on OutpostClusterOCIConfig {
+      clusterName
+      streamOCID
+    }
+    ... on OutpostClusterAlibabaConfig {
+      clusterName
+      queueName
+    }
+  }
+  addedBy {
+    id
+    name
+    email
+  }
+}
+ 
+Variables:
+----------------
+
+{
+                        "input": {
+                                                "outpostId": "<OUTPOST-ID>",
+                                                "region": "centralus",
+                                                "selfManagedOutpostCluster": {
+                                                                        "perCloudConfig": {
+                                                                                                "azureConfig": {
+                                                                                                                        "clusterName": "<AKS-NAME>",
+                                                                                                                        "resourceGroupName": "<CLUSTER-ROURCE-GROUP-NAME>",
+                                                                                                                        "servicebusNamespace": "<SERVICEBAS-NAMESPACE-CREATED-IN-TF-PART2>",
+                                                                                                                        "servicebusQueueName": "wiz-scans-queue",
+                                                                                                                        "storageAccountNames": [
+                                                                                                                                                "<STORAGEACCOUNT>",
+                                                                                                                                                "<STORAGEACCOUNT>",
+                                                                                                                                                "<STORAGEACCOUNT>",
+                                                                                                                                                "<STORAGEACCOUNT>",
+                                                                                                                                                "<STORAGEACCOUNT>",
+                                                                                                                                               "<STORAGEACCOUNT>"
+                                                                                                                        ],
+                                                                                                                        "subscriptionId": "<OUTPOST-SUBSCRIPTION-ID>",
+                                                                                                                        "podIdentityName": "wiz-identity"
+                                                                                                }
+      },"storageClassParameters": "{\"skuname\": \"StandardSSD_LRS\", \"kind\": \"managed\", \"diskEncryptionSetID\": \"<DISK-ENCRYPTION-SET-ID>\"}"
+                                                }
+                        }
+}
+ 
+Like:
+------------
+
+ 
+{
+                "input": {
+                                "outpostId": "77e360fe-55fa-4583-9347-bd34c06b0aba",
+                                "region": "centralus",
+                                "selfManagedOutpostCluster": {
+                                                "perCloudConfig": {
+                                                                "azureConfig": {
+                                                                                "clusterName": "wiz-aks-centralus",
+                                                                                "resourceGroupName": "wiz-outpost-centralus-sm-mtls",
+                                                                                "servicebusNamespace": "yossiservicebusmtlscentral",
+                                                                                "servicebusQueueName": "wiz-scans-queue",
+                                                                                "storageAccountNames": [
+                                                                                                "centralussamtlswizas0",
+                                                                                                "centralussamtlswizdm0",
+                                                                                                "centralussamtlswizdm1",
+                                                                                                "centralussamtlswizdm2",
+                                                                                                "centralussamtlswizdm3",
+                                                                                                  "centralussamtlswizdm4"
+                                                                                ],
+                                                                                "subscriptionId": "1f7acb46-765b-4a27-9ecf-6b2f7b5ad441",
+                                                                                "podIdentityName": "wiz-identity"
+                                                                }
+      },"storageClassParameters": "{\"skuname\": \"StandardSSD_LRS\", \"kind\": \"managed\", \"diskEncryptionSetID\": \"/subscriptions/1f7acb46-765b-4a27-9ecf-6b2f7b5ad441/resourceGroups/Yossi-Test-EncryptionSet/providers/Microsoft.Compute/diskEncryptionSets/Yossi-DiskEncryptionSet\"}"
+                                }
+                }
+}
+ 
