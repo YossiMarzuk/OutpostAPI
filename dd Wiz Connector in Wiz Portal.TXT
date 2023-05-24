@@ -1,0 +1,92 @@
+3.	Add Wiz Connector in Wiz Portal
+
+•	Wiz Portal | API Explorer
+•	Run the following query to get the create a new connector.
+
+Management Group Connector:
+Query:
+
+mutation CreateOrgConnector($input: CreateConnectorInput!) {
+  createConnector(input: $input) {
+    connector {
+      id
+      authParams
+      type {
+        id
+      }
+    }
+  }
+}
+
+
+
+
+Variables:
+
+{
+  "input": {
+    "name": "<CONNATOR-NAME>",
+    "type": "azure",
+    "authParams": {
+      "outpostId": "<OUTPOST-ID>",
+      "diskanalyzerSecretName": "<Outpost-Secret-Name>",
+      "isManagedIdentity": true,
+      "tenantId": <AAD_TENANT_ID>",
+      "groupId": "<AZURE_MG_ID>"
+    },
+    "extraConfig": {}
+  }
+}
+
+Subscription Connector:
+
+Query:
+
+mutation CreateSubscriptionConnector($input: CreateConnectorInput!) {
+  createConnector(input: $input) {
+    connector {
+      id
+      authParams
+      type {
+        id
+      }
+    }
+  }
+}
+
+Variables:
+{
+  "input": {
+    "name": "<CONNECTOR-NAME>",
+    "type": "azure",
+    "authParams": {
+      "outpostId": "<OUTPOST-ID>",
+      "diskanalyzerSecretName": "<Outpost-Secret-Name>",
+      "isManagedIdentity": true,
+      "tenantId": <AAD_TENANT_ID>",
+      "subscriptionId": "<AZURE_SUBSCRIPTION_ID>"
+    },
+    "extraConfig": {}
+  }
+}
+Results:
+
+{
+  "data": {
+    "createConnector": {
+      "connector": {
+        "id": "<CONNECTOR-ID>",
+        "authParams": {
+          "diskanalyzerSecretName": "<Outpost-Secret-Name>",
+          "isManagedIdentity": true,
+          "outpostId": "<OUTPOST-ID>",
+          "subscriptionId": "<SUBSCRIPTION-ID>",
+          "tenantId": "<TENANT-ID>"
+        },
+        "type": {
+          "id": "azure"
+        }
+      }
+    }
+  }
+}
