@@ -1,0 +1,137 @@
+mutation CreateOutpostCluster($input: CreateOutpostClusterInput!) {
+  createOutpostCluster(input: $input) {
+    cluster {
+      id
+      region
+    }
+  }
+}
+
+Variabels:
+
+
+{
+  "input": {
+    "outpostId": "<OUTPOST-ID>",
+    "region": "<REGION>",
+    "selfManagedOutpostCluster": {
+      "perCloudConfig": {
+        "azureConfig": {
+          "clusterName": "wiz-aks-eastus",
+          "servicebusQueueName": "wiz-scans-queue",
+          "servicebusNamespace": "yossi-sbns-wlid-srg",
+          "subscriptionId": "<SUBSRIPTIONID>",
+          "resourceGroupName": "AKSeastus-rg-WLIDSplitRG",
+          "nodeResourceGroup": "Nodeseastus-rg-WLIDSplitRG",
+          "storageAccountNames": [
+            "eastuswlidsrgwizdm0",
+            "eastuswlidsrgwizdm1",
+            "eastuswlidsrgwizdm2",
+            "eastuswlidsrgwizdm3",
+            "eastuswlidsrgwizdm4"
+          ],
+          "storageClassParameters": {
+          "skuname": "StandardSSD_LRS",
+          "kind": "managed",
+          "diskEncryptionSetID": "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/Yossi-Test-EncryptionSet/providers/Microsoft.Compute/diskEncryptionSets/Yossi-DiskEncryptionSet"
+         },
+          "kubernetesServiceAccountName": "wiz-sa",
+          "subnetId": "/subscriptions/<SUBSRIPTIONID>/resourceGroups/Resteastus-rg-WLIDSplitRG/providers/Microsoft.Network/virtualNetworks/wiz-vpc/subnets/wiz-vpc-subnet"
+        }
+      }
+    }
+  }
+}
+--------------------------------------------------------------------------------------
+OR
+--------------------------------------------------------------------------------------
+
+mutation CreateOutpostCluster($input: CreateOutpostClusterInput!) {
+  createOutpostCluster(input: $input) {
+    cluster {
+      ...OutpostClusterDetails
+    }
+  }
+}
+
+
+Variabels:
+    
+    fragment OutpostClusterDetails on OutpostCluster {
+  id
+  region
+  createdAt
+  httpProxyConfig {
+    httpProxyURL
+    httpsProxyURL
+    vpcCIDRs
+  }
+  config {
+    ... on OutpostClusterAWSConfig {
+      clusterName
+      sqsURL
+      kubernetesServiceAccountName
+    }
+    ... on OutpostClusterAzureConfig {
+      clusterName
+      servicebusQueueName
+      servicebusNamespace
+      resourceGroupName
+      storageAccountNames
+      subscriptionId
+    }
+    ... on OutpostClusterGCPConfig {
+      clusterName
+      projectId
+      clusterZone
+      topicName
+      pubSubSubscription
+    }
+    ... on OutpostClusterOCIConfig {
+      clusterName
+      streamOCID
+    }
+    ... on OutpostClusterAlibabaConfig {
+      clusterName
+      queueName
+    }
+  }
+  addedBy {
+    id
+    name
+    email
+  }
+}
+
+# variables:
+# {
+#   "input": {
+#     "outpostId": "dd0f7f74-6d46-4059-ae37-80d2298d37a7",
+#     "region": "eastus2",
+#     "selfManagedOutpostCluster": {
+#       "storageClassParameters": {
+#         "skuname": "StandardSSD_LRS",
+#         "kind": "managed",
+#         "diskEncryptionSetID": "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/Yossi-Test-EncryptionSet/providers/Microsoft.Compute/diskEncryptionSets/Yossi-DiskEncryptionSet"
+#       },
+#       "perCloudConfig": {
+#         "azureConfig": {
+#           "clusterName": "yossiCLUSTER_NAME",
+#           "subnetId": "/subscriptions/<SUBSRIPTIONID>/resourceGroups/Resteastus-rg-WLIDSplitRG/providers/Microsoft.Network/virtualNetworks/wiz-vpc/subnets/wiz-vpc-subnet",
+#           "resourceGroupName": "yossiRESOURCE_GROUP",
+#           "servicebusNamespace": "yossiSERVICE_BUS_NAMESPACE",
+#           "servicebusQueueName": "yossiSERVICE_BUS_QUEUE",
+#           "storageAccountNames": [
+#             "yossiSTORAGE0",
+#             "yossiSTORAGE1",
+#             "yossiSTORAGE2",
+#             "yossiSTORAGE3",
+#             "yossiSTORAGE4"
+#           ],
+#           "subscriptionId": "d9e288c9-bbbe-51d1-8384-4ff4828aa365",
+#           "kubernetesServiceAccountName": "wiz-sa"
+#         }
+#       }
+#     }
+#   }
+# }

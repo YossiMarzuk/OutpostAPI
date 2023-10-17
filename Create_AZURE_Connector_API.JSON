@@ -1,0 +1,33 @@
+mutation CreateConnector($input: CreateConnectorInput!) {
+  createConnector(input: $input) {
+    connector {
+      id
+      authParams
+      type {
+        id
+      }
+    }
+  }
+}
+
+# variables:
+# {
+#   "input": {
+#     "name": "YOSSI-AZURE-CONNECTOR-API",
+#     "type": "azure",
+#     "authParams": {
+#       "outpostId": "<OUTPOST-ID>",
+#       "diskanalyzerSecretName": "<DISK-ANALYZER-SECRET-NAME>",
+#       "tenantId": "<TENANAT-ID>",
+#       "isManagedIdentity": true,
+#       "groupId": "<managementgroupid>"
+#     },
+#     "extraConfig": {
+#       "excludedSubscriptions": [],
+#       "includedSubscriptions": [],
+#       "snapshotsResourceGroupId": "",
+#       "auditLogMonitorEnabled": false,
+#       "diskAnalyzerInFlightDisabled": false
+#     }
+#   }
+# }
