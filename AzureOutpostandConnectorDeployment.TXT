@@ -1,0 +1,11 @@
+Azure Outpost and Connector Deployment
+
+Outpost:
+--------------
+curl -fsSL https://wizio-public.s3.amazonaws.com/deployment-v2/azure/cli/wiz-azure-outpost.sh -o wiz-azure-outpost.sh && chmod +x wiz-azure-outpost.sh && ./wiz-azure-outpost.sh subscription-deployment <subscription-id> <kv-name> <resource-group-region> <storage-account-name> --with-data-scanning
+
+
+Connector:
+--------------
+curl -fsSL https://wizio-public.s3.amazonaws.com/deployment-v2/azure/cli/wiz-azure.sh -o wiz-azure.sh && chmod +x wiz-azure.sh && ./wiz-azure.sh outpost management-group-deployment MY-MANAGEMENT-GROUP-ID --scanner-app-id="<scanner-client-id>" --with-serverless-scanning --with-data-scanning --wiz-managed-id=ae35624f-21cb-4c2c-b2c6-c6c4569f6b66 --with-aad-consent
+
