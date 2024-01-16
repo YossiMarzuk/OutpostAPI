@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: azure-creds
+data:
+  azure.json: "eyJhYWRDbGllbnRJZCI6IjMzZTYxODUyLTkyMDktNDhlYS1hZDg4LTZhOWQ2ZTc2ODE4OSIsInN1YnNjcmlwdGlvbklkIjoiZWVlZjEwYmUtMDFjYy00MGFkLWI3MmMtZTI3MWFlNjcyNTBhIiwidGVuYW50SWQiOiI4ZDA5ZjI4ZC0yYjU0LTQ3NjEtOThmMS1kZTM4NzYyY2Q5MzkiLCJ1c2VGZWRlcmF0ZWRUb2tlbiI6dHJ1ZX0="
+  # external secrets need each key separately so we reference the secret via env vars
+  aadClientId: "MzNlNjE4NTItOTIwOS00OGVhLWFkODgtNmE5ZDZlNzY4MTg5"
+  subscriptionId: "ZWVlZjEwYmUtMDFjYy00MGFkLWI3MmMtZTI3MWFlNjcyNTBh"
+  tenantId: "OGQwOWYyOGQtMmI1NC00NzYxLTk4ZjEtZGUzODc2MmNkOTM5"
